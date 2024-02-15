@@ -12,38 +12,34 @@ const stripe = require('stripe')(
     ); 
 
     const app = express()
-    app.use(cors({origin:true}))
+    
+    app.use(cors({ origin: true }));
 
-    app.use(express.json())
+    app.use(express.json());
 
     app.get("/", (req, res) => {
         res.status(200).json({
-            message:"Success",
+          message: "Success !",
         });
-    });
+      });
 
 
-    app.post("/payment/create", async(req, res)=> {
-        const total = req.query.total;
-
-        if(total > 0){
-            const paymentIntent = await stripe.paymentIntents.create({
-                amount : total,
-                currency:"usd"
-            });
-            console.log(paymentIntent);
-            // res.status(201).json(paymentIntent);
-    
-            res.status(201).json({
-                clientSecret: paymentIntent.client_secret
-            })
-        }else{
-            res.status(403).json({
-                message:'The amount must be greater than zero'});
+    app.post("/payment/create", async (req, res) => {
+        const total = parseInt(req.query.total);
+        if (total > 0) {
+          const paymentIntent = await stripe.paymentIntents.create({
+            amount: total,
+            currency: "usd",
+          });
+          res.status(201).json({
+            clientSecret: paymentIntent.client_secret,
+          });
+        } else {
+          res.status(403).json({
+            message: "total must be greater than 0",
+          });
         }
-        
-        
-    })
+      });
 
 //   app.post("/webhook", async (request, response) => {
 //     const sig = request.headers["stripe-signature"];
@@ -81,10 +77,12 @@ const stripe = require('stripe')(
 
     // exports.api =onRequest(app)
 
-    app.listen(5000, (err)=>{
-        if(err)  throw err; 
-        console.log("Server is running on port: 5000, http://localhost:5000");
-    })
+    // app.listen(5000, (err)=>{
+    //     if(err)  throw err; 
+    //     console.log("Server is running on port: 5000, http://localhost:5000");
+    // })
+
+    app.listen(4050, console.log("Amazon Server Running ..."));
 
 
 //const bodyParser=require('body-parser');
