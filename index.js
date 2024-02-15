@@ -12,7 +12,7 @@ const stripe = require('stripe')(
     ); 
 
     const app = express()
-    
+
     app.use(cors({ origin: true }));
 
     app.use(express.json());
@@ -77,12 +77,12 @@ const stripe = require('stripe')(
 
     // exports.api =onRequest(app)
 
-    // app.listen(5000, (err)=>{
-    //     if(err)  throw err; 
-    //     console.log("Server is running on port: 5000, http://localhost:5000");
-    // })
+    app.listen(5000, (err)=>{
+        if(err)  throw err; 
+        console.log("Server is running on port: 5000, http://localhost:5000");
+    })
 
-    app.listen(4050, console.log("Amazon Server Running ..."));
+    // app.listen(4050, console.log("Amazon Server Running ..."));
 
 
 //const bodyParser=require('body-parser');
